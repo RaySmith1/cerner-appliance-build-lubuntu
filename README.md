@@ -4,7 +4,9 @@ Cerner Connectivity Engine Generic Lubuntu Build
 
 ## Overview
 
-This GIT repository provides the automation instructions for installing Lubuntu 18.04 LTS onto a Cerner Connectivity Engine.  This generic build/image can be used to remove all propriatray information from the Cerner Connectivity Engine converting it into a functional gerneric Linux system.  This is useful when discarding or selling the hardware.
+This GIT repository provides the automation instructions for installing Lubuntu 18.04 LTS onto a Cerner Connectivity Engine.  This generic build/image can be used to remove all propriatray information from the Cerner Connectivity Engine converting it into a functional gerneric Linux system.  This is useful when discarding or selling the hardware.  
+
+> **NOTE**: Since version 3 Cerner Connectivity Engines are EoL/EoS, sellers can use this process to extend the usefulness of the CCE3 hardware.  Please keep in mind, the CCE3 hardware is a 10-year old design (introduced in 2011-12) and has not been manufactured for the last 5-years (2015-16).
 
 -----
 
