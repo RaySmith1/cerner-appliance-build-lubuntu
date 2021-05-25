@@ -69,7 +69,7 @@ label install
   kernel /install/vmlinuz
   append  file=/cdrom/appliance/appliance-lubuntu.seed console-setup/ask_detect=false console-keymaps-at/keymap=us keyboard-configuration/layoutcode=us locale=en_US hostname=cce vga=788 initrd=/install/initrd.gz quiet noapic noacpi nosplash irqpol ---
 ```
-1. When complete, eject USB media and remove from Windows System.
+1. When complete, eject USB media and unplug USB disk from system.
 
 ### Installation Lubuntu
 
