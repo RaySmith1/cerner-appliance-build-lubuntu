@@ -89,7 +89,7 @@ Complete the following steps to install Lubuntu:
 
 ### Post Installation Steps
 
-> **Important!**: Post installation steps are only required for x86 systems that you want to maintain Touchscreen functionality.  x86_86 systems should be fully functional.
+> **Important!**: Post installation steps are only required for x86 systems where Touchscreen functionality is desired.  x86_86 systems should be fully functional.
 
 Completethe following steps to install x86 touchscreen drivers:
 ... **TODO**
