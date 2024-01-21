@@ -89,10 +89,41 @@ Complete the following steps to install Lubuntu:
 
 ### Post Installation Steps
 
-> **Important!**: Post installation steps are only required for x86 systems where Touchscreen functionality is desired.  x86_86 systems should be fully functional.
+> **Important!**: Post installation steps are only required for x86 systems where touchscreen functionality is desired.  No additional changes are required for x86_86 systems.
 
-Complete the following steps to install x86 touchscreen drivers:
-... **TODO**
+#### Install x86 Touchscreen Drivers
+
+Completethe following steps to install x86 touchscreen drivers:
+1. Login to Lubuntu. 
+2. Navigate to Lubuntu Menu > System Tools > LXTerminal
+3. Type the following commands to extract the touchscreen driver.
+```
+user@lubuntu:~$ sudo -i
+```
+```
+root@lubuntu:~# tar -zcvf /appliance.build/pmLinux-Ubuntu_12.04-17.04_32_64bit_Driver_V4.4.0.tar.gz -C /appliance.build/
+```
+```
+root@lubuntu:~# /appliance.build/pmLinux-Ubuntu_12.04-17.04_32_64bit_Driver_V4.4.0/install.sh
+```
+```
+root@lubuntu:~# reboot
+```
+
+#### Calibrate x86 Touchscreen
+
+Complete the following steps to calibrate the touchscreen:
+1. Login to Lubuntu. 
+2. Navigate to Lubuntu Menu > System Tools > LXTerminal
+3. Type the following command calibrate the touchscreen.  With a firm stylist, touch each displayed target to calibrate the screen.
+```
+user@lubuntu:~$ sudo gCal 4 /etc/penmount/penmount.dat
+```
+```
+user@lubuntu:~$ exit
+```
+
+> **NOTE**: x86_64 hardware should not require touchscreen calibration.
 
 -----
 
