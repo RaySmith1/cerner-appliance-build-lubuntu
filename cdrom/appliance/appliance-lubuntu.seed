@@ -1,0 +1,112 @@
+### Designed for x86 and x86_64 appliance build using http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-alternate-i386.iso
+### Designed for x86_64 appliance build using http://cdimage.ubuntu.com/lubuntu/releases/18.04/release/lubuntu-18.04-alternate-amd64.iso
+
+### Enable OEM install (does not work with 'alternative' ISO)
+#d-i oem-config/enable boolean true
+
+### Localization
+d-i debian-installer/locale string en
+d-i debian-installer/country string US
+d-i debian-installer/locale string en_US.UTF-8
+d-i debian-installer/language string en
+
+# Keyboard selection.
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/xkb-keymap select us
+
+### Network configuration
+d-i netcfg/choose_interface select auto
+#d-i netcfg/choose_interface select eth0
+d-i netcfg/dhcp_timeout string 60
+d-i netcfg/get_hostname string unassigned-hostname
+d-i netcfg/get_domain string unassigned-domain
+d-i netcfg/wireless_wep string
+d-i netcfg/hostname string lubuntu
+
+### Hardware Extra
+d-i hw-detect/load_firmware boolean false
+
+### Mirror settings
+d-i mirror/country string manual
+d-i mirror/http/hostname string archive.ubuntu.com
+d-i mirror/http/directory string /ubuntu
+d-i mirror/http/proxy string
+d-i mirror/http/mirror select US.archive.ubuntu.com
+
+### Clock and time zone setup
+d-i clock-setup/utc boolean true
+d-i time/zone string America/Chicago
+d-i clock-setup/ntp boolean true
+
+# Verbose output and no boot splash screen.
+d-i debian-installer/quiet  boolean true
+d-i debian-installer/splash boolean true
+d-i grub-installer/timeout string 2
+
+# Prevent prompt to unmount exiting file system
+d-i preseed/early_command string [ "$(mount | grep -c /media)" -gt 0 ] && umount /media
+d-i partman/early_command string \
+[ -b /dev/nvme0n1 ] && BOOTDISK="/dev/nvme0n1" || BOOTDISK="/dev/sda"; \
+debconf-set grub-installer/bootdev $BOOTDISK;
+
+### Partitioning   
+d-i partman-auto/method string regular
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman-lvm/confirm boolean true
+d-i partman-auto/choose_recipe select atomic
+#d-i partman-auto/expert_recipe string                       \
+#	boot-root ::                                            \
+#			250 50 250 ext4                                 \
+#					$primary{ } $bootable{ }                \
+#					method{ format } format{ }              \
+#					use_filesystem{ } filesystem{ ext4 }    \
+#					mountpoint{ /boot }                     \
+#			.                                               \
+#			2000 10000 1000000000 ext4                      \
+#					method{ format } format{ }              \
+#					use_filesystem{ } filesystem{ ext4 }    \
+#					mountpoint{ / }                         \
+#			.
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_nooverwrite boolean true
+# Skip question about not having swap partition
+d-i partman-basicfilesystems/no_swap boolean false
+d-i partman/mount_style select traditional
+
+### Account setup
+d-i passwd/user-fullname string User
+d-i passwd/username string user
+d-i passwd/user-password password user
+d-i passwd/user-password-again password user
+d-i user-setup/allow-password-weak boolean true
+d-i user-setup/encrypt-home boolean false
+
+### Package selection
+tasksel tasksel/first multiselect standard
+d-i pkgsel/include string lubuntu-desktop
+d-i base-installer/install-recommends boolean false
+
+d-i pkgsel/upgrade select safe-upgrade
+d-i pkgsel/update-policy select unattended-upgrades
+#d-i pkgsel/updatedb boolean true
+
+### Boot-loader Settings
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/with_other_os boolean true
+#d-i grub-installer/bootdev  string /dev/sda
+#d-i grub-installer/bootdev  string /dev/nvme0n1
+d-i debian-installer/add-kernel-opts string quiet splash
+d-i finish-install/reboot_in_progress note
+d-i cdrom-detect/eject boolean true
+
+### OEM Options
+# Blank the oem-instructions at the end of the config
+# d-i oem-config-udeb/instructions text
+# Install full language support
+# oem-config oem-config/install-language-support boolean true
+
+#### Advanced options
+d-i preseed/late_command string mkdir -p /target/appliance.build; cp /cdrom/appliance/* /target/appliance.build/; in-target /bin/bash /appliance.build/install-appliance.sh
